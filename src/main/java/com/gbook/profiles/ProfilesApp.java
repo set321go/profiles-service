@@ -10,8 +10,11 @@ public class ProfilesApp {
 
   public static void main(String[] args) throws Exception {
     RatpackServer.start(s -> s
-        .serverConfig(c -> c.baseDir(BaseDir.find()))
-        .registry(Guice.registry(b -> b.module(MyModule.class)))
+        .serverConfig(c -> c
+                .baseDir(BaseDir.find())
+                .yaml("application.yml")
+        )
+        .registry(Guice.registry(b -> b.module(ProfileModule.class)))
         .handlers(chain -> chain
             .prefix("profile", nested -> { // Set up a nested routing block, which is delegated to `nestedHandler`
               nested.all(IdentityHandler.class);

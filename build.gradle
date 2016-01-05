@@ -32,7 +32,7 @@ dependencies {
     testCompile 'org.mockito:mockito-all:1.10.19'
 }
 
-mainClassName = "com.gbook.profiles.MyApp"
+mainClassName = "com.gbook.profiles.ProfilesApp"
 
 // The “ratpack” plugin is IDEA aware.
 // It will create a run configuration in IDEA to launch your app in your IDE, with hot reloading.

@@ -1,6 +1,5 @@
 package com.gbook.profiles.identity;
 
-import com.google.common.base.Preconditions;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
@@ -27,6 +26,10 @@ public class IdentityService {
     private LoadingCache<String, Identity> identityCache;
     private IdentityLoader identityLoader;
 
+    /**
+     * We are using a cache because it is assumed that your identity loader will contacting a separate system
+     * @param aIdentityLoader
+     */
     @Inject
     public IdentityService(IdentityLoader aIdentityLoader) {
         identityLoader = aIdentityLoader;
