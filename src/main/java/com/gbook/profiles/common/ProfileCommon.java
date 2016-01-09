@@ -1,6 +1,10 @@
 package com.gbook.profiles.common;
 
 import com.gbook.profiles.ProfileData;
+import com.google.common.collect.Maps;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -21,5 +25,12 @@ public class ProfileCommon implements ProfileData {
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public Map<? extends String, ?> asMap() {
+        Map<String, String> data = Maps.newHashMap();
+        data.put("name", name);
+        return data;
     }
 }

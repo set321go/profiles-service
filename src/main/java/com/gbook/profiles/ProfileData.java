@@ -1,5 +1,7 @@
 package com.gbook.profiles;
 
+import java.util.Map;
+
 /**
  * Created with IntelliJ IDEA.
  * User: set321go
@@ -7,4 +9,5 @@ package com.gbook.profiles;
  * Time: 18:27
  */
 public interface ProfileData {
+    Map<? extends String,?> asMap();
 }

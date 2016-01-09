@@ -25,6 +25,8 @@ public class ProfileReadHandler implements Handler {
 
     @Override
     public void handle(Context ctx) throws Exception {
-        ctx.insert(profileParts.toArray(new Handler[profileParts.size()]));
+        Handler [] handlers = profileParts.toArray(new Handler[profileParts.size() + 1]);
+        handlers[handlers.length -1 ] = ctx.get(ProfileRenderer.class);
+        ctx.insert(handlers);
     }
 }

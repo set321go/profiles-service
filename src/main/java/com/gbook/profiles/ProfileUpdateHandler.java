@@ -15,6 +15,6 @@ import javax.inject.Singleton;
 public class ProfileUpdateHandler implements Handler {
     @Override
     public void handle(Context ctx) throws Exception {
-        throw new UnsupportedOperationException();
+        ctx.next();
     }
 }

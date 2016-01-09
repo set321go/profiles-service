@@ -22,17 +22,14 @@ repositories {
 }
 
 dependencies {
+    testCompile 'junit:junit:4.11'
+
     // This is a Guice ratpack app
     compile ratpack.dependency("guice")
     compile 'org.apache.commons:commons-lang3:3.4'
 
     runtime 'org.slf4j:slf4j-simple:1.7.10'
-
-    testCompile 'junit:junit:4.11'
-    testCompile 'org.mockito:mockito-all:1.10.19'
 }
-
-mainClassName = "com.gbook.profiles.ProfilesApp"
 
 // The “ratpack” plugin is IDEA aware.
 // It will create a run configuration in IDEA to launch your app in your IDE, with hot reloading.
@@ -52,3 +49,5 @@ idea {
         }
     }
 }
+
+mainClassName = "com.gbook.profiles.ProfilesApp"

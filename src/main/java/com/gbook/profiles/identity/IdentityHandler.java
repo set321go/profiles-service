@@ -1,5 +1,6 @@
 package com.gbook.profiles.identity;
 
+import com.gbook.profiles.ProfileReadHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ratpack.handling.Context;

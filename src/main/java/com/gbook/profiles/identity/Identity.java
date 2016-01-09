@@ -1,6 +1,9 @@
 package com.gbook.profiles.identity;
 
 import com.gbook.profiles.ProfileData;
+import com.google.common.collect.Maps;
+
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -9,4 +12,8 @@ import com.gbook.profiles.ProfileData;
  * Time: 14:33
  */
 public class Identity implements ProfileData {
+    @Override
+    public Map<? extends String, ?> asMap() {
+        return Maps.newHashMap();
+    }
 }

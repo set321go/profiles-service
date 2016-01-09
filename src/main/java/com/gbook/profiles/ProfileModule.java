@@ -27,6 +27,7 @@ public class ProfileModule extends AbstractModule {
 
         bind(ProfileReadHandler.class);
         bind(ProfileUpdateHandler.class);
+        bind(ProfileRenderer.class);
 
         Multibinder<Handler> profileParts = Multibinder.newSetBinder(binder(), Handler.class);
         profileParts.addBinding().to(CommonReadHandler.class);
