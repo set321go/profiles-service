@@ -10,8 +10,6 @@ import ratpack.http.Status;
 import ratpack.test.handling.HandlingResult;
 import ratpack.test.handling.RequestFixture;
 
-import java.util.Optional;
-
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
@@ -22,12 +20,12 @@ import static org.mockito.Mockito.when;
  * Time: 19:58
  */
 @RunWith(MockitoJUnitRunner.class)
-public class CommonReadHandlerTest {
+public class ProfileCommonHandlerTest {
     @Mock
     private CommonProfileDataService service;
 
     @InjectMocks
-    private CommonReadHandler handler;
+    private ProfileCommonHandler handler;
 
     @Test
     public void givenValidIdentityRetrieveCommonProfileData() throws Exception {

@@ -15,11 +15,11 @@ import javax.inject.Inject;
  * Time: 18:02
  */
 @Singleton
-public class CommonReadHandler implements Handler {
+public class ProfileCommonHandler implements Handler {
     private CommonProfileDataService commonProfileDataService;
 
     @Inject
-    public CommonReadHandler(CommonProfileDataService aCommonProfileDataService) {
+    public ProfileCommonHandler(CommonProfileDataService aCommonProfileDataService) {
         commonProfileDataService = aCommonProfileDataService;
     }
 

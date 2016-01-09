@@ -3,11 +3,12 @@ package com.gbook.profiles;
 import java.util.Map;
 
 /**
- * Created with IntelliJ IDEA.
- * User: set321go
- * Date: 2016-01-04
- * Time: 18:27
+ * All Data parts that expect to be rendered need to implement this interface.
  */
 public interface ProfileData {
+    /**
+     * A map representation of the data to be rendered.
+     * @return Map&lt;String, Object&gt; map
+     */
     Map<? extends String,?> asMap();
 }

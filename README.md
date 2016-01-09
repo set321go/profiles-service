@@ -1,19 +1,34 @@
-Ratpack Lite project template
------------------------------
+Profile Service
+---------------
 
-You have just created a very basic Groovy Ratpack application. This is for
-experienced users that know exactly what they want and get frustrated at
-deleting a bunch files and directories that they don't want or need.
+This service is designed to serve user profile data. It is designed to easily modify so that you can insert your own
+profile sections. It is built using [ratpack](https://ratpack.io) an event based http framework for java.
 
-In this project you get:
+OTB Parts
+---------
 
-* A Gradle build file
-* A tiny home page at src/ratpack/public/index.html
-* A routing file at src/ratpack/ratpack.groovy
-* Reloading enabled via src/ratpack/config.groovy
+* `IdentityHandler` - Provides identity resolution expects to find a `Client-Identity` header that contains a token that
+can be verified by your Identity Provider. Resolution is done by the `IdentityLoader`, by default this is just a dummy
+implementation.
+* `ProfileCommonHandler` - Provides handling of common profile data. Currently 'name' is the only common profile data.
+Again this is backed by a dummy data loader.
+* `ProfileContactsHandler` - WIP
 
-That's it! You can start the basic app with
+Future Work
+-----------
+* Docker buildable container
+* Implementation backed IdentityLoaders.
+  1. OpenId Connect
+  2. OAUTH 2
+  3. SAML
+* Implementation backed DataLoader layer.
+  1. RDBMS
+  2. Cassandra
+* Metrics
 
-    gradle run
+Licence
+-------
+This project is covered by the [Apache License 2.0](LICENCE)
 
-but it's up to you to add the bells, whistles, and meat of the application.
+
+

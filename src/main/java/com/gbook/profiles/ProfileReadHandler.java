@@ -7,12 +7,6 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.util.Set;
 
-/**
- * Created with IntelliJ IDEA.
- * User: set321go
- * Date: 2016-01-03
- * Time: 13:21
- */
 @Singleton
 public class ProfileReadHandler implements Handler {
 

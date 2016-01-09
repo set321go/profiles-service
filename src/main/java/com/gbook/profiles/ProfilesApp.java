@@ -2,7 +2,6 @@ package com.gbook.profiles;
 
 import com.gbook.profiles.identity.IdentityHandler;
 import ratpack.guice.Guice;
-import ratpack.handling.Chain;
 import ratpack.server.BaseDir;
 import ratpack.server.RatpackServer;
 

@@ -14,10 +14,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Created with IntelliJ IDEA.
- * User: set321go
- * Date: 2016-01-03
- * Time: 14:19
+ * This service will cache identities because it is assumed your identity loader will be contacting a separate system
  */
 @Singleton
 public class IdentityService {
@@ -26,10 +23,6 @@ public class IdentityService {
     private LoadingCache<String, Identity> identityCache;
     private IdentityLoader identityLoader;
 
-    /**
-     * We are using a cache because it is assumed that your identity loader will contacting a separate system
-     * @param aIdentityLoader
-     */
     @Inject
     public IdentityService(IdentityLoader aIdentityLoader) {
         identityLoader = aIdentityLoader;
