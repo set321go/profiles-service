@@ -17,8 +17,12 @@ public class ProfilesApp {
         .registry(Guice.registry(b -> b.module(ProfileModule.class)))
         .handlers(chain -> chain
             .all(IdentityHandler.class)
-            .get("profile", ProfileReadHandler.class)
-            .prefix("static", nested -> nested.fileSystem("assets/images", Chain::files)) // Bind the /static app path to the src/ratpack/assets/images dir
+            .path("profile", ctx -> {
+                ctx.byMethod(aByMethodSpec -> {
+                    aByMethodSpec.get(() -> ctx.insert(ctx.get(ProfileReadHandler.class)));
+                    aByMethodSpec.put(() -> ctx.insert(ctx.get(ProfileUpdateHandler.class)));
+                });
+            })
         )
     );
   }
