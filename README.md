@@ -6,7 +6,7 @@ profile sections. It is built using [ratpack](https://ratpack.io) an event based
 
 Getting Started
 ---------------
-__OTB Server starts in Development mode, this leaks implementation details to the client tht you probably don't want in
+__OTB Server starts in Development mode, this leaks implementation details to the client that you probably don't want in
 production, these can be changed in the [application.yml](src/main/resources/application.yml)__
 
 To startup the server from the command line, navigate to the root of hte project and execute:
