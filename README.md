@@ -4,6 +4,21 @@ Profile Service
 This service is designed to serve user profile data. It is designed to easily modify so that you can insert your own
 profile sections. It is built using [ratpack](https://ratpack.io) an event based http framework for java.
 
+Getting Started
+---------------
+__OTB Server starts in Development mode, this leaks implementation details to the client tht you probably don't want in
+production, these can be changed in the [application.yml](src/main/resources/application.yml)__
+
+To startup the server from the command line, navigate to the root of hte project and execute:
+
+    gradle run
+
+To build an executable jar:
+
+    gradle shadowJar
+
+To debug add `--debug-jvm` to the end of your gradle command.
+
 OTB Parts
 ---------
 
