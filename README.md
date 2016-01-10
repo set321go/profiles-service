@@ -29,6 +29,15 @@ implementation.
 Again this is backed by a dummy data loader.
 * `ProfileContactsHandler` - WIP
 
+Using With Docker
+-----------------
+
+You can easily create a docker image using the included `Dockerfile`. The `Dockerfile` is using shadow jar so need to have
+first build it then you can create the image.
+
+    gradle installShadow
+    docker build -t <name of your image>:<tag name> .
+
 Future Work
 -----------
 * Docker buildable container
