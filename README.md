@@ -38,10 +38,16 @@ first build it then you can create the image.
     gradle installShadow
     docker build -t <name of your image>:<tag name> .
 
+Features & Bugs
+---------------
+
+Feel free to submit a PR or open an issue. Feedback on code and docs would be appreciated as well as some snippets about
+what your using the project for.
+
 Future Work
 -----------
-* Docker buildable container
-* Implementation backed IdentityLoaders.
+* Contacts Handler
+* Implementation backed IdentityLoaders. (this is probably actually seperate Identity Provider service)
   1. OpenId Connect
   2. OAUTH 2
   3. SAML
