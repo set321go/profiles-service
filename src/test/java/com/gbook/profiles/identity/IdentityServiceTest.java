@@ -7,6 +7,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -32,7 +33,7 @@ public class IdentityServiceTest {
 
     @Test
     public void givenValidIdentityTokenProvideIdentity() {
-        Identity identity = new Identity();
+        Identity identity = new Identity(UUID.randomUUID());
         when(identityLoader.find(IDENTITY_TOKEN)).thenReturn(Optional.of(identity));
 
         Optional<Identity> result = identityService.isIdentifiable(IDENTITY_TOKEN);

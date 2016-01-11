@@ -8,12 +8,12 @@ import javax.inject.Singleton;
 import java.util.Set;
 
 @Singleton
-public class ProfileReadHandler implements Handler {
+public class ProfileHandler implements Handler {
 
     private Set<Handler> profileParts;
 
     @Inject
-    public ProfileReadHandler(Set<Handler> aProfileParts) {
+    public ProfileHandler(Set<Handler> aProfileParts) {
         profileParts = aProfileParts; //might want to actually enforce some ordering on this.
     }
 

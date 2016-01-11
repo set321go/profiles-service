@@ -14,9 +14,14 @@ import static ratpack.jackson.Jackson.json;
 public class ProfileRenderer implements Handler {
     @Override
     public void handle(Context ctx) throws Exception {
-        Map<String, Object> profile = Maps.newHashMap();
-        Iterable<? extends ProfileData> allDataParts = ctx.getAll(ProfileData.class);
-        allDataParts.forEach(data -> profile.putAll(data.asMap()));
-        ctx.render(json(profile));
+        ctx.byMethod(methodSpec ->
+            methodSpec.get(() -> {
+                Map<String, Object> profile = Maps.newHashMap();
+                Iterable<? extends ProfileData> allDataParts = ctx.getAll(ProfileData.class);
+                allDataParts.forEach(data -> profile.putAll(data.asMap()));
+                ctx.render(json(profile));
+            })
+            .patch(() -> ctx.getResponse().status(204).send())
+        );
     }
 }

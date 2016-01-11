@@ -16,12 +16,7 @@ public class ProfilesApp {
         .registry(Guice.registry(b -> b.module(ProfileModule.class)))
         .handlers(chain -> chain
             .all(IdentityHandler.class)
-            .path("profile", ctx -> {
-                ctx.byMethod(aByMethodSpec -> {
-                    aByMethodSpec.get(() -> ctx.insert(ctx.get(ProfileReadHandler.class)));
-                    aByMethodSpec.put(() -> ctx.insert(ctx.get(ProfileUpdateHandler.class)));
-                });
-            })
+            .get("profile", ProfileHandler.class)
         )
     );
   }

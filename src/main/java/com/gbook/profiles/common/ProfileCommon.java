@@ -1,5 +1,7 @@
 package com.gbook.profiles.common;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import com.gbook.profiles.ProfileData;
 import com.google.common.collect.Maps;
 
@@ -19,7 +21,7 @@ public class ProfileCommon implements ProfileData {
         this("");
     }
 
-    public ProfileCommon(String aName) {
+    public ProfileCommon(@JsonProperty("name") String aName) {
         name = aName;
     }
 

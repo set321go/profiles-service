@@ -10,6 +10,7 @@ import ratpack.test.handling.HandlingResult;
 import ratpack.test.handling.RequestFixture;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -36,7 +37,7 @@ public class IdentityHandlerTest {
 
     @Test
     public void givenValidClientIdentityHeaderAValidIdentityIsAvailableInTheRegistry() throws Exception {
-        Identity identity = new Identity();
+        Identity identity = new Identity(UUID.randomUUID());
         when(identityService.isIdentifiable(IDENTITY_TOKEN)).thenReturn(Optional.of(identity));
 
         HandlingResult result = RequestFixture.handle(handler, fixture -> {
