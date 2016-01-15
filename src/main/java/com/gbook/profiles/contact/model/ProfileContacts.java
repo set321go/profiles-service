@@ -20,6 +20,10 @@ public class ProfileContacts implements ProfileData {
         contactList = aContactList;
     }
 
+    public List<ProfileContact> getContactList() {
+        return contactList;
+    }
+
     @Override
     public Map<? extends String, ?> asMap() {
         Map<String, Object> data = Maps.newHashMap();

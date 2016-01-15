@@ -13,16 +13,23 @@ import java.util.Map;
  * Time: 09:36
  */
 public class ProfileContact implements ProfileData {
+    private String guid;
     private String type;
     private ContactData value;
     private boolean defaultContact;
 
-    public ProfileContact(@JsonProperty("type") String aType,
+    public ProfileContact(@JsonProperty("guid") String aGuid,
+                          @JsonProperty("type") String aType,
                           @JsonProperty("value") ContactData aValue,
                           @JsonProperty("defaultContact") boolean aDefaultContact) {
+        guid = aGuid;
         type = aType;
         value = aValue;
         defaultContact = aDefaultContact;
+    }
+
+    public String getGuid() {
+        return guid;
     }
 
     public String getType() {
@@ -40,6 +47,7 @@ public class ProfileContact implements ProfileData {
     @Override
     public Map<? extends String, ?> asMap() {
         Map<String, Object> data = Maps.newHashMap();
+        data.put("guid", guid);
         data.put("type", type);
         data.put("value", value);
         data.put("isDefaultContact", defaultContact);

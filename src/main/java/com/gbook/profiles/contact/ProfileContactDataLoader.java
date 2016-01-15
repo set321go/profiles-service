@@ -13,4 +13,6 @@ import java.util.List;
  */
 public interface ProfileContactDataLoader {
     List<ProfileContact> findAllFor(Identity aIdentity);
+
+    void updateContactInfo(Identity aIdentity, ProfileContact aProfileContacts) throws Exception;
 }

@@ -27,6 +27,7 @@ dependencies {
     // This is a Guice ratpack app
     compile ratpack.dependency("guice")
     compile 'org.apache.commons:commons-lang3:3.4'
+    compile 'commons-validator:commons-validator:1.5.0'
 
     runtime 'org.slf4j:slf4j-simple:1.7.10'
 }
