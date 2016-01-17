@@ -65,6 +65,6 @@ public class ProfileContactService {
             isValid = validator.validate(profileContact);
         }
 
-        return isValid;
+        return !isValid;
     }
 }

@@ -7,6 +7,7 @@ import com.google.common.collect.Maps;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Created with IntelliJ IDEA.
@@ -34,5 +35,18 @@ public class ProfileCommon implements ProfileData {
         Map<String, String> data = Maps.newHashMap();
         data.put("name", name);
         return data;
+    }
+
+    @Override
+    public boolean equals(Object aO) {
+        if (this == aO) return true;
+        if (aO == null || getClass() != aO.getClass()) return false;
+        ProfileCommon common = (ProfileCommon) aO;
+        return Objects.equals(name, common.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
     }
 }

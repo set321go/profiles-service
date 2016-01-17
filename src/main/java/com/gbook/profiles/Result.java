@@ -3,6 +3,8 @@ package com.gbook.profiles;
 import org.apache.commons.lang3.StringEscapeUtils;
 import ratpack.handling.Context;
 
+import java.util.Objects;
+
 /**
  * Created with IntelliJ IDEA.
  * User: set321go
@@ -37,5 +39,29 @@ public class Result {
 
     public static Result success() {
         return SUCCESS;
+    }
+
+    @Override
+    public boolean equals(Object aO) {
+        if (this == aO) return true;
+        if (aO == null || getClass() != aO.getClass()) return false;
+        Result result = (Result) aO;
+        return isSuccess == result.isSuccess &&
+                isInputError == result.isInputError &&
+                Objects.equals(clientSafeCause, result.clientSafeCause);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(isSuccess, isInputError, clientSafeCause);
+    }
+
+    @Override
+    public String toString() {
+        return "Result{" +
+                "isSuccess=" + isSuccess +
+                ", isInputError=" + isInputError +
+                ", clientSafeCause='" + clientSafeCause + '\'' +
+                '}';
     }
 }
