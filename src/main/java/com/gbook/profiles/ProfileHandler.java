@@ -4,6 +4,7 @@ import ratpack.handling.Context;
 import ratpack.handling.Handler;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.inject.Singleton;
 import java.util.Set;
 
@@ -13,7 +14,7 @@ public class ProfileHandler implements Handler {
     private Set<Handler> profileParts;
 
     @Inject
-    public ProfileHandler(Set<Handler> aProfileParts) {
+    public ProfileHandler(@Named("profileParts") Set<Handler> aProfileParts) {
         profileParts = aProfileParts; //might want to actually enforce some ordering on this.
     }
 

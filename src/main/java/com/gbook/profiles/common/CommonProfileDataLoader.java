@@ -14,4 +14,6 @@ public interface CommonProfileDataLoader {
     Optional<ProfileCommon> findFor(Identity aIdentity);
 
     void updateFor(Identity aIdentity, ProfileCommon aProfileCommon);
+
+    void create(Identity aIdentity, ProfileCommon aProfileCommon);
 }

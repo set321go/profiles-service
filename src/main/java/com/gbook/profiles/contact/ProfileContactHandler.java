@@ -1,6 +1,6 @@
 package com.gbook.profiles.contact;
 
-import com.gbook.profiles.Result;
+import com.gbook.profiles.model.Result;
 import com.gbook.profiles.contact.model.ProfileContact;
 import com.gbook.profiles.contact.model.ProfileContacts;
 import com.gbook.profiles.identity.Identity;

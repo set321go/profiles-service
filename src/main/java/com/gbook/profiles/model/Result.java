@@ -1,4 +1,4 @@
-package com.gbook.profiles;
+package com.gbook.profiles.model;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 import ratpack.handling.Context;

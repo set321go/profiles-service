@@ -1,6 +1,6 @@
 package com.gbook.profiles.contact;
 
-import com.gbook.profiles.Result;
+import com.gbook.profiles.model.Result;
 import com.gbook.profiles.contact.model.DefaultContactData;
 import com.gbook.profiles.contact.model.ProfileContact;
 import com.gbook.profiles.contact.model.ProfileContacts;
@@ -66,4 +66,38 @@ public class ProfileContactServiceTest {
         assertEquals(Result.withServerCause(null), result);
     }
 
+    @Test
+    public void createWithValidInput() {
+        Identity identity = new Identity(UUID.randomUUID());
+        ProfileContact contact = new ProfileContact("guid", "email", new DefaultContactData("a@a.com"), true);
+        ProfileContacts contacts = new ProfileContacts(Lists.newArrayList(contact));
+
+        Result result = service.create(identity, contacts);
+
+        assertEquals(Result.success(), result);
+    }
+
+    @Test
+    public void createFailsValidation() {
+        Identity identity = new Identity(UUID.randomUUID());
+        ProfileContact contact = new ProfileContact("guid", "email", new DefaultContactData("a@"), true);
+        ProfileContacts contacts = new ProfileContacts(Lists.newArrayList(contact));
+
+        Result result = service.create(identity, contacts);
+
+        assertEquals(Result.withClientCause("Invalid Contacts"), result);
+    }
+
+    @Test
+    public void createFailsInternalUpdate() throws Exception {
+        Identity identity = new Identity(UUID.randomUUID());
+        ProfileContact contact = new ProfileContact("guid", "email", new DefaultContactData("a@a.com"), true);
+        ProfileContacts contacts = new ProfileContacts(Lists.newArrayList(contact));
+
+        doThrow(Exception.class).when(loader).create(identity, contact);
+
+        Result result = service.create(identity, contacts);
+
+        assertEquals(Result.withServerCause(null), result);
+    }
 }

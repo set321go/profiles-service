@@ -25,4 +25,9 @@ public class DummyProfileDataLoader implements CommonProfileDataLoader {
     public void updateFor(Identity aIdentity, ProfileCommon aProfileCommon) {
         throw new UnsupportedOperationException();
     }
+
+    @Override
+    public void create(Identity aIdentity, ProfileCommon aProfileCommon) {
+        throw new UnsupportedOperationException();
+    }
 }

@@ -46,4 +46,9 @@ public class DummyProfileDataLoader implements ProfileContactDataLoader {
             profileContacts.get(aIdentity.getGuid()).add(aProfileContact);
         }
     }
+
+    @Override
+    public void create(Identity aIdentity, ProfileContact aProfileContact) {
+        profileContacts.get(aIdentity.getGuid()).add(aProfileContact);
+    }
 }

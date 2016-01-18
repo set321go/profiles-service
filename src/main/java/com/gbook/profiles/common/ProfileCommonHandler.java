@@ -1,6 +1,6 @@
 package com.gbook.profiles.common;
 
-import com.gbook.profiles.Result;
+import com.gbook.profiles.model.Result;
 import com.gbook.profiles.identity.Identity;
 import com.google.inject.Singleton;
 import ratpack.handling.Context;

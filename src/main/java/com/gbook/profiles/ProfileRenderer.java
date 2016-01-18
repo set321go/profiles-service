@@ -1,5 +1,6 @@
 package com.gbook.profiles;
 
+import com.gbook.profiles.model.ProfileData;
 import com.google.common.collect.Maps;
 import ratpack.handling.Context;
 import ratpack.handling.Handler;

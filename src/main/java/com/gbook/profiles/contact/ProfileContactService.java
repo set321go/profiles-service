@@ -1,6 +1,6 @@
 package com.gbook.profiles.contact;
 
-import com.gbook.profiles.Result;
+import com.gbook.profiles.model.Result;
 import com.gbook.profiles.contact.model.ProfileContact;
 import com.gbook.profiles.contact.model.ProfileContacts;
 import com.gbook.profiles.contact.validator.AddressValidator;
@@ -49,6 +49,23 @@ public class ProfileContactService {
         try {
             for (ProfileContact profileContact : aProfileContacts.getContactList()) {
                 loader.updateContactInfo(aIdentity, profileContact);
+            }
+        } catch (Exception exception) {
+            LOGGER.warn("Failed to update contact info", exception);
+            return Result.withServerCause(exception.getMessage());
+        }
+
+        return Result.success();
+    }
+
+    public Result create(Identity aIdentity, ProfileContacts aProfileContacts) {
+        if (validateContacts(aProfileContacts)) {
+            return Result.withClientCause("Invalid Contacts");
+        }
+
+        try {
+            for (ProfileContact profileContact : aProfileContacts.getContactList()) {
+                loader.create(aIdentity, profileContact);
             }
         } catch (Exception exception) {
             LOGGER.warn("Failed to update contact info", exception);

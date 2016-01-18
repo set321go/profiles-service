@@ -1,9 +1,8 @@
 package com.gbook.profiles.common;
 
-import com.gbook.profiles.Result;
+import com.gbook.profiles.model.Result;
 import com.gbook.profiles.identity.Identity;
 import org.apache.commons.lang3.StringUtils;
-import org.omg.PortableInterceptor.SUCCESSFUL;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -35,6 +34,24 @@ public class CommonProfileDataService {
 
         try {
             loader.updateFor(aIdentity, aProfileCommon);
+        } catch (Exception exception) {
+            return Result.withServerCause("There was an unexpected error processing your request.");
+        }
+
+        return Result.success();
+    }
+
+    public Result create(Identity aIdentity) {
+        return create(aIdentity, new ProfileCommon("Anonymous"));
+    }
+
+    public Result create(Identity aIdentity, ProfileCommon aProfileCommon) {
+        if (StringUtils.isBlank(aProfileCommon.getName())) {
+            return Result.withClientCause("Unable to process 'name' must have a value, remove this property to use default (Anon");
+        }
+
+        try {
+            loader.create(aIdentity, aProfileCommon);
         } catch (Exception exception) {
             return Result.withServerCause("There was an unexpected error processing your request.");
         }

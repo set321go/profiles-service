@@ -1,7 +1,7 @@
 package com.gbook.profiles.contact.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.gbook.profiles.ProfileData;
+import com.gbook.profiles.model.ProfileData;
 import com.google.common.collect.Maps;
 
 import java.util.Map;

@@ -1,7 +1,7 @@
 package com.gbook.profiles.identity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.gbook.profiles.ProfileData;
+import com.gbook.profiles.model.ProfileData;
 import com.google.common.collect.Maps;
 
 import java.util.Map;

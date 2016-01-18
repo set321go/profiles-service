@@ -1,4 +1,4 @@
-package com.gbook.profiles;
+package com.gbook.profiles.model;
 
 import java.util.Map;
 

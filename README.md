@@ -46,7 +46,6 @@ what your using the project for.
 
 Future Work
 -----------
-* Contacts Handler
 * Implementation backed IdentityLoaders. (this is probably actually separate Identity Provider service)
   1. OpenId Connect
   2. OAUTH 2
