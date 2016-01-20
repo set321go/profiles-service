@@ -3,7 +3,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'io.ratpack:ratpack-gradle:1.0.0',
+        classpath 'io.ratpack:ratpack-gradle:1.1.1',
                   'com.github.jengelman.gradle.plugins:shadow:1.2.1'
     }
 }
@@ -27,10 +27,13 @@ dependencies {
 
     // This is a Guice ratpack app
     compile ratpack.dependency("guice")
+    compile ratpack.dependency("rx")
     compile 'org.apache.commons:commons-lang3:3.4'
     compile 'commons-validator:commons-validator:1.5.0'
+    compile 'com.github.davidmoten:rxjava-jdbc:0.7'
 
     runtime 'org.slf4j:slf4j-simple:1.7.10'
+    runtime 'org.postgresql:postgresql:9.4.1207'
 }
 
 // The “ratpack” plugin is IDEA aware.

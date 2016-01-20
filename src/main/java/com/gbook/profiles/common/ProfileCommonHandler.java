@@ -1,15 +1,13 @@
 package com.gbook.profiles.common;
 
-import com.gbook.profiles.model.Result;
 import com.gbook.profiles.identity.Identity;
 import com.google.inject.Singleton;
 import ratpack.handling.Context;
 import ratpack.handling.Handler;
 import ratpack.registry.Registry;
+import ratpack.rx.RxRatpack;
 
 import javax.inject.Inject;
-
-import static ratpack.jackson.Jackson.json;
 
 /**
  * Created with IntelliJ IDEA.
@@ -31,14 +29,11 @@ public class ProfileCommonHandler implements Handler {
         Identity identity = ctx.get(Identity.class);
 
         ctx.byMethod(methodSpec ->
-            methodSpec.get(() -> ctx.next(Registry.single(commonProfileDataService.find(identity))))
+            methodSpec.get(() -> RxRatpack.promiseSingle(commonProfileDataService.find(identity)).then(aProfileCommon -> ctx.next(Registry.single(aProfileCommon))))
                 .patch(() ->
                     ctx.parse(ProfileCommon.class)
-                            .onError(throwable -> ctx.getResponse().status(400).send("Invaild content, unable to parse 'name'"))
-                            .then(profileCommon -> {
-                                Result result = commonProfileDataService.update(identity, profileCommon);
-                                result.processResponse(ctx);
-                            })
+                        .onError(throwable -> ctx.getResponse().status(400).send("Invaild content, unable to parse 'name'"))
+                        .then(profileCommon -> RxRatpack.promiseSingle(commonProfileDataService.update(identity, profileCommon)).then(aResult -> aResult.processResponse(ctx)))
             )
         );
     }

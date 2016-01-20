@@ -1,8 +1,7 @@
 package com.gbook.profiles.common;
 
 import com.gbook.profiles.identity.Identity;
-
-import java.util.Optional;
+import rx.Observable;
 
 /**
  * Created with IntelliJ IDEA.
@@ -11,9 +10,9 @@ import java.util.Optional;
  * Time: 18:19
  */
 public interface CommonProfileDataLoader {
-    Optional<ProfileCommon> findFor(Identity aIdentity);
+    Observable<ProfileCommon> findFor(Identity aIdentity);
 
-    void updateFor(Identity aIdentity, ProfileCommon aProfileCommon);
+    Observable<Boolean> updateFor(Identity aIdentity, ProfileCommon aProfileCommon);
 
-    void create(Identity aIdentity, ProfileCommon aProfileCommon);
+    Observable<Boolean> create(Identity aIdentity, ProfileCommon aProfileCommon);
 }

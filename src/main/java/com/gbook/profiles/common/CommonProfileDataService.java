@@ -3,6 +3,7 @@ package com.gbook.profiles.common;
 import com.gbook.profiles.model.Result;
 import com.gbook.profiles.identity.Identity;
 import org.apache.commons.lang3.StringUtils;
+import rx.Observable;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -22,40 +23,44 @@ public class CommonProfileDataService {
         loader = aLoader;
     }
 
-    public ProfileCommon find(Identity aIdentity) {
+    public Observable<ProfileCommon> find(Identity aIdentity) {
         return loader.findFor(aIdentity)
-                .orElse(new ProfileCommon());
+                .defaultIfEmpty(new ProfileCommon());
     }
 
-    public Result update(Identity aIdentity, ProfileCommon aProfileCommon) {
+    public Observable<Result> update(Identity aIdentity, ProfileCommon aProfileCommon) {
         if (StringUtils.isBlank(aProfileCommon.getName())) {
-            return Result.withClientCause("Unable to process 'name' must have a value");
+            return Observable.just(Result.withClientCause("Unable to process 'name' must have a value"));
         }
 
-        try {
-            loader.updateFor(aIdentity, aProfileCommon);
-        } catch (Exception exception) {
-            return Result.withServerCause("There was an unexpected error processing your request.");
-        }
-
-        return Result.success();
+        return loader.updateFor(aIdentity, aProfileCommon)
+                .map(aBoolean -> {
+                    if (aBoolean) {
+                        return Result.success();
+                    } else {
+                        throw new IllegalStateException("Update Failed");
+                    }
+                })
+                .onErrorReturn(aThrowable -> Result.withServerCause("There was an unexpected error processing your request."));
     }
 
-    public Result create(Identity aIdentity) {
+    public Observable<Result> create(Identity aIdentity) {
         return create(aIdentity, new ProfileCommon("Anonymous"));
     }
 
-    public Result create(Identity aIdentity, ProfileCommon aProfileCommon) {
+    public Observable<Result> create(Identity aIdentity, ProfileCommon aProfileCommon) {
         if (StringUtils.isBlank(aProfileCommon.getName())) {
-            return Result.withClientCause("Unable to process 'name' must have a value, remove this property to use default (Anon");
+            return Observable.just(Result.withClientCause("Unable to process 'name' must have a value, remove this property to use default (Anon"));
         }
 
-        try {
-            loader.create(aIdentity, aProfileCommon);
-        } catch (Exception exception) {
-            return Result.withServerCause("There was an unexpected error processing your request.");
-        }
-
-        return Result.success();
+       return loader.create(aIdentity, aProfileCommon)
+                .map(aBoolean -> {
+                    if (aBoolean) {
+                        return Result.success();
+                    } else {
+                        throw new IllegalStateException("Update Failed");
+                    }
+                })
+                .onErrorReturn(aThrowable -> Result.withServerCause("There was an unexpected error processing your request."));
     }
 }

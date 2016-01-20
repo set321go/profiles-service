@@ -1,10 +1,10 @@
 package com.gbook.profiles.common;
 
 import com.gbook.profiles.identity.Identity;
-import com.gbook.profiles.model.Result;
 import com.google.inject.Singleton;
 import ratpack.handling.Context;
 import ratpack.handling.Handler;
+import ratpack.rx.RxRatpack;
 
 import javax.inject.Inject;
 
@@ -27,13 +27,7 @@ public class CreateProfileCommonHandler implements Handler {
     public void handle(Context ctx) throws Exception {
         Identity identity = ctx.get(Identity.class);
         ctx.parse(ProfileCommon.class)
-                .onError(throwable -> {
-                    Result result = commonProfileDataService.create(identity);
-                    result.processResponse(ctx);
-                })
-                .then(profileCommon -> {
-                    Result result = commonProfileDataService.create(identity, profileCommon);
-                    result.processResponse(ctx);
-                });
+            .onError(throwable -> RxRatpack.promiseSingle(commonProfileDataService.create(identity)).then(aResult -> aResult.processResponse(ctx)))
+            .then(profileCommon -> RxRatpack.promiseSingle(commonProfileDataService.create(identity, profileCommon)).then(aResult -> aResult.processResponse(ctx)));
     }
 }
