@@ -11,6 +11,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import ratpack.http.Status;
 import ratpack.test.handling.HandlingResult;
 import ratpack.test.handling.RequestFixture;
+import rx.Observable;
 
 import java.util.UUID;
 
@@ -47,9 +48,9 @@ public class CreateProfileContactHandlerTest {
     @Test
     public void createProfileContactWIthInput() throws Exception {
         Identity identity = new Identity(UUID.randomUUID());
-        String json = "{\"contacts\": [{\"guid\":\"guid\",\"type\":\"email\",\"value\": {\"contact\": \"a@a.com\"},\"defaultContact\": true}]}";
+        String json = "{\"contacts\": [{\"guid\":1,\"type\":\"email\",\"value\": {\"contact\": \"a@a.com\"},\"defaultContact\": true}]}";
 
-        when(contactService.create(isA(Identity.class), isA(ProfileContacts.class))).thenReturn(Result.success());
+        when(contactService.create(isA(Identity.class), isA(ProfileContacts.class))).thenReturn(Observable.just(Result.success()));
 
         HandlingResult result = RequestFixture.handle(handler, fixture -> {
             fixture.getRegistry().add(identity);

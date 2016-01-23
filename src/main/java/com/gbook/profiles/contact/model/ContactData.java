@@ -10,4 +10,5 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 @JsonDeserialize(as = DefaultContactData.class)
 public interface ContactData {
+    String flatten();
 }

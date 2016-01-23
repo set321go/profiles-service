@@ -2,8 +2,7 @@ package com.gbook.profiles.contact;
 
 import com.gbook.profiles.contact.model.ProfileContact;
 import com.gbook.profiles.identity.Identity;
-
-import java.util.List;
+import rx.Observable;
 
 /**
  * Created with IntelliJ IDEA.
@@ -12,9 +11,9 @@ import java.util.List;
  * Time: 10:41
  */
 public interface ProfileContactDataLoader {
-    List<ProfileContact> findAllFor(Identity aIdentity);
+    Observable<ProfileContact> findAllFor(Identity aIdentity);
 
-    void updateContactInfo(Identity aIdentity, ProfileContact aProfileContacts) throws Exception;
+    Observable<Boolean> updateContactInfo(Identity aIdentity, ProfileContact aProfileContacts);
 
-    void create(Identity aIdentity, ProfileContact aProfileContact);
+    Observable<Boolean> create(Identity aIdentity, ProfileContact aProfileContact);
 }

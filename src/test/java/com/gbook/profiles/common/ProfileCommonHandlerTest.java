@@ -10,6 +10,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import ratpack.http.Status;
 import ratpack.test.handling.HandlingResult;
 import ratpack.test.handling.RequestFixture;
+import rx.Observable;
 
 import java.util.UUID;
 
@@ -37,7 +38,7 @@ public class ProfileCommonHandlerTest {
     public void givenValidIdentityRetrieveCommonProfileData() throws Exception {
         Identity identity = new Identity(UUID.randomUUID());
         ProfileCommon common = new ProfileCommon();
-        when(service.find(identity)).thenReturn(common);
+        when(service.find(identity)).thenReturn(Observable.just(common));
 
         HandlingResult result = RequestFixture.handle(handler, fixture -> {
             fixture.getRegistry().add(identity);
@@ -51,7 +52,7 @@ public class ProfileCommonHandlerTest {
     @Test
     public void givenValidIdentityUpdateCommonProfileData() throws Exception {
         Identity identity = new Identity(UUID.randomUUID());
-        when(service.update(isA(Identity.class), isA(ProfileCommon.class))).thenReturn(Result.success());
+        when(service.update(isA(Identity.class), isA(ProfileCommon.class))).thenReturn(Observable.just(Result.success()));
 
         HandlingResult result = RequestFixture.handle(handler, fixture -> {
             fixture.getRegistry().add(identity);
@@ -66,7 +67,7 @@ public class ProfileCommonHandlerTest {
     @Test
     public void givenValidIdentityWithUnparsableCommonProfileData() throws Exception {
         Identity identity = new Identity(UUID.randomUUID());
-        when(service.update(isA(Identity.class), isA(ProfileCommon.class))).thenReturn(Result.withClientCause("bad data"));
+        when(service.update(isA(Identity.class), isA(ProfileCommon.class))).thenReturn(Observable.just(Result.withClientCause("bad data")));
 
         HandlingResult result = RequestFixture.handle(handler, fixture -> {
             fixture.getRegistry().add(identity);

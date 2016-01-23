@@ -23,6 +23,10 @@ public class Result {
         clientSafeCause = aClientSafeCause;
     }
 
+    public boolean hasError() {
+        return !isSuccess;
+    }
+
     public void processResponse(Context ctx) {
         if (isSuccess) { ctx.next(); }
         else if (isInputError) { ctx.getResponse().status(400).send(clientSafeCause); }

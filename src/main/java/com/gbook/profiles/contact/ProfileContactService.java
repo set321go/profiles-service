@@ -8,12 +8,10 @@ import com.gbook.profiles.contact.validator.EmailValidator;
 import com.gbook.profiles.contact.validator.ProfileContactValidator;
 import com.gbook.profiles.identity.Identity;
 import com.google.common.collect.ImmutableMap;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import rx.Observable;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -24,8 +22,6 @@ import java.util.Map;
  */
 @Singleton
 public class ProfileContactService {
-    private final static Logger LOGGER = LoggerFactory.getLogger(ProfileContactService.class);
-
     private ProfileContactDataLoader loader;
     private Map<String, ProfileContactValidator> validators = ImmutableMap.of(
             "email", new EmailValidator(),
@@ -37,42 +33,46 @@ public class ProfileContactService {
         loader = aLoader;
     }
 
-    public List<ProfileContact> findAll(Identity aIdentity) {
+    public Observable<ProfileContact> findAll(Identity aIdentity) {
         return loader.findAllFor(aIdentity);
     }
 
-    public Result updateContacts(Identity aIdentity, ProfileContacts aProfileContacts) {
+    public Observable<Result> updateContacts(Identity aIdentity, ProfileContacts aProfileContacts) {
         if (validateContacts(aProfileContacts)) {
-            return Result.withClientCause("Invalid Contacts");
+            return Observable.just(Result.withClientCause("Invalid Contacts"));
         }
 
-        try {
-            for (ProfileContact profileContact : aProfileContacts.getContactList()) {
-                loader.updateContactInfo(aIdentity, profileContact);
-            }
-        } catch (Exception exception) {
-            LOGGER.warn("Failed to update contact info", exception);
-            return Result.withServerCause(exception.getMessage());
-        }
-
-        return Result.success();
+        return Observable.from(aProfileContacts.getContactList())
+                .flatMap(aProfileContact ->
+                        loader.updateContactInfo(aIdentity, aProfileContact)
+                                .map(aBoolean -> {
+                                    if (aBoolean) {
+                                        return Result.success();
+                                    } else {
+                                        throw new IllegalStateException("Update Failed");
+                                    }
+                                })
+                                .onErrorReturn(aThrowable -> Result.withServerCause("There was an unexpected error processing your request."))
+                );
     }
 
-    public Result create(Identity aIdentity, ProfileContacts aProfileContacts) {
+    public Observable<Result> create(Identity aIdentity, ProfileContacts aProfileContacts) {
         if (validateContacts(aProfileContacts)) {
-            return Result.withClientCause("Invalid Contacts");
+            return Observable.just(Result.withClientCause("Invalid Contacts"));
         }
 
-        try {
-            for (ProfileContact profileContact : aProfileContacts.getContactList()) {
-                loader.create(aIdentity, profileContact);
-            }
-        } catch (Exception exception) {
-            LOGGER.warn("Failed to update contact info", exception);
-            return Result.withServerCause(exception.getMessage());
-        }
-
-        return Result.success();
+        return Observable.from(aProfileContacts.getContactList())
+                .flatMap(aProfileContact ->
+                    loader.create(aIdentity, aProfileContact)
+                            .map(aBoolean -> {
+                                if (aBoolean) {
+                                    return Result.success();
+                                } else {
+                                    throw new IllegalStateException("Update Failed");
+                                }
+                            })
+                            .onErrorReturn(aThrowable -> Result.withServerCause("There was an unexpected error processing your request."))
+                );
     }
 
     private boolean validateContacts(ProfileContacts aProfileContacts) {

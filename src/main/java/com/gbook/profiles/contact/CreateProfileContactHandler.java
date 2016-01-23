@@ -1,13 +1,17 @@
 package com.gbook.profiles.contact;
 
 import com.gbook.profiles.contact.model.ProfileContacts;
+import com.gbook.profiles.contact.model.ResultUtil;
 import com.gbook.profiles.identity.Identity;
 import com.gbook.profiles.model.Result;
 import com.google.inject.Singleton;
+import ratpack.exec.Promise;
 import ratpack.handling.Context;
 import ratpack.handling.Handler;
+import ratpack.rx.RxRatpack;
 
 import javax.inject.Inject;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -30,8 +34,8 @@ public class CreateProfileContactHandler implements Handler {
         ctx.parse(ProfileContacts.class)
                 .onError(throwable -> ctx.next())
                 .then(profileContacts -> {
-                    Result result = profileContactService.create(identity, profileContacts);
-                    result.processResponse(ctx);
+                    Promise<List<Result>> promise = RxRatpack.promise(profileContactService.create(identity, profileContacts));
+                    promise.then(aResults -> ResultUtil.processResultList(ctx, aResults));
                 });
     }
 }

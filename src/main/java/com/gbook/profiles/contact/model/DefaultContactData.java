@@ -19,4 +19,10 @@ public class DefaultContactData implements ContactData {
     public String getContact() {
         return contact;
     }
+
+
+    @Override
+    public String flatten() {
+        return contact;
+    }
 }

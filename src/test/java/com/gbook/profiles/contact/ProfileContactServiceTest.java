@@ -11,11 +11,12 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import rx.Observable;
 
 import java.util.UUID;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.when;
 
 /**
  * Created with IntelliJ IDEA.
@@ -34,70 +35,74 @@ public class ProfileContactServiceTest {
     @Test
     public void updateWithValidInput() {
         Identity identity = new Identity(UUID.randomUUID());
-        ProfileContact contact = new ProfileContact("guid", "email", new DefaultContactData("a@a.com"), true);
+        ProfileContact contact = new ProfileContact(1, "email", new DefaultContactData("a@a.com"), true);
         ProfileContacts contacts = new ProfileContacts(Lists.newArrayList(contact));
 
-        Result result = service.updateContacts(identity, contacts);
+        when(loader.updateContactInfo(identity, contact)).thenReturn(Observable.just(Boolean.TRUE));
 
-        assertEquals(Result.success(), result);
+        Observable<Result> result = service.updateContacts(identity, contacts);
+
+        assertEquals(Result.success(), result.toBlocking().first());
     }
 
     @Test
     public void updateFailsValidation() {
         Identity identity = new Identity(UUID.randomUUID());
-        ProfileContact contact = new ProfileContact("guid", "email", new DefaultContactData("a@"), true);
+        ProfileContact contact = new ProfileContact(1, "email", new DefaultContactData("a@"), true);
         ProfileContacts contacts = new ProfileContacts(Lists.newArrayList(contact));
 
-        Result result = service.updateContacts(identity, contacts);
+        Observable<Result> result = service.updateContacts(identity, contacts);
 
-        assertEquals(Result.withClientCause("Invalid Contacts"), result);
+        assertEquals(Result.withClientCause("Invalid Contacts"), result.toBlocking().first());
     }
 
     @Test
     public void updateFailsInternalUpdate() throws Exception {
         Identity identity = new Identity(UUID.randomUUID());
-        ProfileContact contact = new ProfileContact("guid", "email", new DefaultContactData("a@a.com"), true);
+        ProfileContact contact = new ProfileContact(1, "email", new DefaultContactData("a@a.com"), true);
         ProfileContacts contacts = new ProfileContacts(Lists.newArrayList(contact));
 
-        doThrow(Exception.class).when(loader).updateContactInfo(identity, contact);
+        when(loader.updateContactInfo(identity, contact)).thenReturn(Observable.just(Boolean.FALSE));
 
-        Result result = service.updateContacts(identity, contacts);
+        Observable<Result> result = service.updateContacts(identity, contacts);
 
-        assertEquals(Result.withServerCause(null), result);
+        assertEquals(Result.withServerCause("There was an unexpected error processing your request."), result.toBlocking().first());
     }
 
     @Test
     public void createWithValidInput() {
         Identity identity = new Identity(UUID.randomUUID());
-        ProfileContact contact = new ProfileContact("guid", "email", new DefaultContactData("a@a.com"), true);
+        ProfileContact contact = new ProfileContact(1, "email", new DefaultContactData("a@a.com"), true);
         ProfileContacts contacts = new ProfileContacts(Lists.newArrayList(contact));
 
-        Result result = service.create(identity, contacts);
+        when(loader.create(identity, contact)).thenReturn(Observable.just(Boolean.TRUE));
 
-        assertEquals(Result.success(), result);
+        Observable<Result> result = service.create(identity, contacts);
+
+        assertEquals(Result.success(), result.toBlocking().first());
     }
 
     @Test
     public void createFailsValidation() {
         Identity identity = new Identity(UUID.randomUUID());
-        ProfileContact contact = new ProfileContact("guid", "email", new DefaultContactData("a@"), true);
+        ProfileContact contact = new ProfileContact(1, "email", new DefaultContactData("a@"), true);
         ProfileContacts contacts = new ProfileContacts(Lists.newArrayList(contact));
 
-        Result result = service.create(identity, contacts);
+        Observable<Result> result = service.create(identity, contacts);
 
-        assertEquals(Result.withClientCause("Invalid Contacts"), result);
+        assertEquals(Result.withClientCause("Invalid Contacts"), result.toBlocking().first());
     }
 
     @Test
     public void createFailsInternalUpdate() throws Exception {
         Identity identity = new Identity(UUID.randomUUID());
-        ProfileContact contact = new ProfileContact("guid", "email", new DefaultContactData("a@a.com"), true);
+        ProfileContact contact = new ProfileContact(1, "email", new DefaultContactData("a@a.com"), true);
         ProfileContacts contacts = new ProfileContacts(Lists.newArrayList(contact));
 
-        doThrow(Exception.class).when(loader).create(identity, contact);
+        when(loader.create(identity, contact)).thenReturn(Observable.just(Boolean.FALSE));
 
-        Result result = service.create(identity, contacts);
+        Observable<Result> result = service.create(identity, contacts);
 
-        assertEquals(Result.withServerCause(null), result);
+        assertEquals(Result.withServerCause("There was an unexpected error processing your request."), result.toBlocking().first());
     }
 }

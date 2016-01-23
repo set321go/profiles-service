@@ -20,7 +20,7 @@ import java.util.Optional;
  * Time: 19:34
  */
 @Singleton
-public class DummyProfileDataLoader implements CommonProfileDataLoader {
+public class RxPostgresProfileDataLoader implements CommonProfileDataLoader {
     @Inject
     private DatabaseFactory databaseFactory;
 

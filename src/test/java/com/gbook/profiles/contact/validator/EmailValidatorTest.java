@@ -24,25 +24,25 @@ public class EmailValidatorTest {
 
     @Test
     public void validEmailIsSuccessfullyValidated() {
-        ProfileContact contact = new ProfileContact("guid", "email", new DefaultContactData("a@a.com"), true);
+        ProfileContact contact = new ProfileContact(1, "email", new DefaultContactData("a@a.com"), true);
         assertTrue(validator.validate(contact));
     }
 
     @Test
     public void invalidEmailIsInvalidValidated() {
-        ProfileContact contact = new ProfileContact("guid", "email", new DefaultContactData("string"), true);
+        ProfileContact contact = new ProfileContact(1, "email", new DefaultContactData("string"), true);
         assertFalse(validator.validate(contact));
     }
 
     @Test
     public void emptyEmailIsInvalidValidated() {
-        ProfileContact contact = new ProfileContact("guid", "email", new DefaultContactData(""), true);
+        ProfileContact contact = new ProfileContact(1, "email", new DefaultContactData(""), true);
         assertFalse(validator.validate(contact));
     }
 
     @Test
     public void nullEmailIsInvalidValidated() {
-        ProfileContact contact = new ProfileContact("guid", "email", new DefaultContactData(null), true);
+        ProfileContact contact = new ProfileContact(1, "email", new DefaultContactData(null), true);
         assertFalse(validator.validate(contact));
     }
 }

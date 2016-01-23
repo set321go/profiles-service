@@ -1,6 +1,8 @@
 package com.gbook.profiles.contact.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.common.base.Preconditions;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Created with IntelliJ IDEA.
@@ -27,6 +29,17 @@ public class AddressContact implements ContactData {
         country = aCountry;
     }
 
+    public AddressContact(String addressValue) {
+        String[] addressParts = addressValue.split(":");
+        Preconditions.checkArgument(addressParts.length == 5);
+
+        street = addressParts[0];
+        city = addressParts[1];
+        region = addressParts[2];
+        postcode = addressParts[3];
+        country = addressParts[4];
+    }
+
     public String getStreet() {
         return street;
     }
@@ -45,5 +58,10 @@ public class AddressContact implements ContactData {
 
     public String getCountry() {
         return country;
+    }
+
+    @Override
+    public String flatten() {
+        return String.join(":", street, city, region, postcode, country);
     }
 }

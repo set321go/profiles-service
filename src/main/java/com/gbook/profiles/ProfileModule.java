@@ -4,7 +4,7 @@ import com.gbook.profiles.common.CommonProfileDataLoader;
 import com.gbook.profiles.common.CommonProfileDataService;
 import com.gbook.profiles.common.CreateProfileCommonHandler;
 import com.gbook.profiles.common.ProfileCommonHandler;
-import com.gbook.profiles.common.impl.DummyProfileDataLoader;
+import com.gbook.profiles.common.impl.RxPostgresProfileDataLoader;
 import com.gbook.profiles.contact.CreateProfileContactHandler;
 import com.gbook.profiles.contact.ProfileContactDataLoader;
 import com.gbook.profiles.contact.ProfileContactHandler;
@@ -39,9 +39,9 @@ public class ProfileModule extends AbstractModule {
         newProfileHandlers.addBinding().to(CreateProfileContactHandler.class);
 
         bind(CommonProfileDataService.class);
-        bind(CommonProfileDataLoader.class).to(DummyProfileDataLoader.class);
+        bind(CommonProfileDataLoader.class).to(RxPostgresProfileDataLoader.class);
 
         bind(ProfileContactService.class);
-        bind(ProfileContactDataLoader.class).to(com.gbook.profiles.contact.impl.DummyProfileDataLoader.class);
+        bind(ProfileContactDataLoader.class).to(com.gbook.profiles.contact.impl.RxPostgresProfileDataLoader.class);
     }
 }

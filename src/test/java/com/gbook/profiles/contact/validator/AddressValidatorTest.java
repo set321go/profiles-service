@@ -24,13 +24,13 @@ public class AddressValidatorTest {
 
     @Test
     public void validAddressIsSuccessfullyValidated() {
-        ProfileContact contact = new ProfileContact("guid", "email", new AddressContact("street", "city", "region", "postcode", "CA"), true);
+        ProfileContact contact = new ProfileContact(1, "email", new AddressContact("street", "city", "region", "postcode", "CA"), true);
         assertTrue(validator.validate(contact));
     }
 
     @Test
     public void invalidCountryCodeIsInValid() {
-        ProfileContact contact = new ProfileContact("guid", "email", new AddressContact("street", "city", "region", "postcode", "Potato"), true);
+        ProfileContact contact = new ProfileContact(1, "email", new AddressContact("street", "city", "region", "postcode", "Potato"), true);
         assertFalse(validator.validate(contact));
     }
 }

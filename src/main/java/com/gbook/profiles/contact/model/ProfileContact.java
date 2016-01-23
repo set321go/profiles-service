@@ -13,12 +13,12 @@ import java.util.Map;
  * Time: 09:36
  */
 public class ProfileContact implements ProfileData {
-    private String guid;
+    private int guid;
     private String type;
     private ContactData value;
     private boolean defaultContact;
 
-    public ProfileContact(@JsonProperty("guid") String aGuid,
+    public ProfileContact(@JsonProperty("guid") int aGuid,
                           @JsonProperty("type") String aType,
                           @JsonProperty("value") ContactData aValue,
                           @JsonProperty("defaultContact") boolean aDefaultContact) {
@@ -28,7 +28,7 @@ public class ProfileContact implements ProfileData {
         defaultContact = aDefaultContact;
     }
 
-    public String getGuid() {
+    public int getGuid() {
         return guid;
     }
 
