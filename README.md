@@ -51,7 +51,6 @@ Future Work
   2. OAUTH 2
   3. SAML
 * Implementation backed DataLoader layer.
-  1. RDBMS
   2. Cassandra
 * Metrics
 
