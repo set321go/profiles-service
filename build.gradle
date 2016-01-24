@@ -59,4 +59,5 @@ idea {
     }
 }
 
+//This is for the run & runShadow tasks
 mainClassName = "com.gbook.profiles.ProfilesApp"

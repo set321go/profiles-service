@@ -13,11 +13,11 @@ production, these can be changed in the [application.yml](src/main/resources/app
 
 To startup the server from the command line, navigate to the root of hte project and execute:
 
-    gradle run
+    ./gradlew run
 
 To build an executable jar:
 
-    gradle shadowJar
+    ./gradlew shadowJar
 
 To debug add `--debug-jvm` to the end of your gradle command.
 
@@ -37,7 +37,7 @@ Using With Docker
 You can easily create a docker image using the included `Dockerfile`. The `Dockerfile` is using shadow jar so need to have
 first build it then you can create the image.
 
-    gradle installShadow
+    ./gradlew installShadow
     docker build -t <name of your image>:<tag name> .
 
 Features & Bugs
