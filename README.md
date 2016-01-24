@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/set321go/profiles-service.svg?branch=master)](https://travis-ci.org/set321go/profiles-service)
+
 Profile Service
 ---------------
 
