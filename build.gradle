@@ -1,7 +1,7 @@
 plugins {
     id 'org.unbroken-dome.test-sets' version '1.2.0'
     id 'io.ratpack.ratpack-java' version '1.1.1'
-    id 'com.github.johnrengelman.shadow' version '1.2.1'
+    id 'com.bmuschko.docker-java-application' version '3.0.0'
 }
 
 if (!JavaVersion.current().java8Compatible) {
@@ -9,6 +9,8 @@ if (!JavaVersion.current().java8Compatible) {
 }
 
 apply plugin: "idea"
+apply plugin: 'application'
+apply plugin: 'com.bmuschko.docker-java-application'
 
 repositories {
     jcenter()
@@ -19,7 +21,7 @@ testSets {
 }
 
 dependencies {
-    itestCompile ratpack.dependency('test')
+//    itestCompile ratpack.dependency('test')
 
     testCompile 'junit:junit:4.11'
     testCompile 'org.mockito:mockito-all:1.10.19'
@@ -33,6 +35,15 @@ dependencies {
 
     runtime 'org.slf4j:slf4j-simple:1.7.10'
     runtime 'org.postgresql:postgresql:9.4.1207'
+}
+
+docker {
+    url='unix:///var/run/docker.sock'
+    javaApplication {
+        baseImage = 'anapsix/alpine-java:jdk8'
+        maintainer = 'Jon Doe "jon.doe@gmail.com'
+        port = 8080
+    }
 }
 
 tasks.withType(Test) {
